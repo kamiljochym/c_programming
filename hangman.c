@@ -1,13 +1,8 @@
 
-/* ________ */
-/* |      | */
-/* O      | */
-/* --|--    | */
-/* |      | */
-/* / \    /_\ */
-
 #include <stdio.h>
 #include <string.h>
+#include <termios.h>
+#include <unistd.h>
 
 #define ALIVE 1
 #define DEAD 0
@@ -68,13 +63,16 @@ int main(void) {
 
   int length_of_word;
   int correct_letters = 0;
-  char word[30];
+  char *word;
   char revealed_word[30];
   int lives = 8;
 
   // user inputs word to be guessed
-  printf("Enter word to be guessed: \n");
-  scanf("%s", word);
+  /* printf("Enter word to be guessed: \n"); */
+  /* scanf("%s", word); */
+
+  word = getpass("Enter a word to be guessed: \n");
+
   length_of_word = strlen(word);
   // fill revealed_word with underscores
   fill_array(revealed_word, length_of_word);
@@ -109,7 +107,7 @@ int main(void) {
       printf("YOU LOSE!");
       break;
     }
-    printf("%s, %d \n", revealed_word, lives);
+    printf("\n%s   lives: %d \n", revealed_word, lives);
     printf("Guess letter: ");
   }
 }
